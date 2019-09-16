@@ -44,20 +44,26 @@ public class HelloWorldController {
     }
 
     @RequestMapping("/index")
-    public String indexHtml(Model model){
+    public String indexHtml(Model model) {
 
-        Person single = new Person("hyj",21);
-        List<Person> people = new ArrayList<Person>();
-        Person p1 = new Person("dlp",21);
-        Person p2 = new Person("tq",21);
-        Person p3 = new Person("mk",21);
-        people.add(p1);
-        people.add(p2);
-        people.add(p3);
-        model.addAttribute("singlePerson",single);
-        model.addAttribute("people",people);
+        Person single = new Person("hyj", 21);
+        List<Person> peopleList = new ArrayList<Person>();
+        Person p1 = new Person("dlp", 21);
+        Person p2 = new Person("tq", 21);
+        Person p3 = new Person("mk", 21);
+        peopleList.add(p1);
+        peopleList.add(p2);
+        peopleList.add(p3);
+        model.addAttribute("singlePerson", single);
+        model.addAttribute("people", peopleList);
         return "indexDemo";
+    }
 
+
+    @RequestMapping("/login")
+    public String loginDemo(Model model) {
+        logger.info("com.alice.crm.controller.HelloWorldController.loginDemo");
+        return "login";
     }
 
 }
