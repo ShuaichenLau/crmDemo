@@ -1,7 +1,7 @@
-package com.alice.crm.controller;
+package com.alice.crm.user.controller;
 
-import com.alice.crm.entity.User;
-import com.alice.crm.service.IUserService;
+import com.alice.crm.user.entity.User;
+import com.alice.crm.user.service.IUserService;
 import com.alice.crm.utils.RandomValueUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.alice.crm.dao.UserDao" >
+<mapper namespace="com.alice.crm.user.dao.UserDao" >
     <sql id="BASE_TABLE">
         t_user
     </sql>
@@ -9,7 +9,7 @@
         userId,userName,password,phone
     </sql>
 
-    <insert id="insertUser" useGeneratedKeys="true" keyProperty="userId" parameterType="com.alice.crm.entity.User">
+    <insert id="insertUser" useGeneratedKeys="true" keyProperty="userId" parameterType="com.alice.crm.user.entity.User">
         INSERT INTO
         <include refid="BASE_TABLE"/>
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -33,7 +33,7 @@
         userId = #{userId, jdbcType=INTEGER}
     </delete>
     <!-- 更新用户信息，为空的字段不进行置空 -->
-    <update id="updateUser" parameterType="com.alice.crm.entity.User">
+    <update id="updateUser" parameterType="com.alice.crm.user.entity.User">
         UPDATE
         <include refid="BASE_TABLE"/>
         <set>
@@ -52,7 +52,7 @@
         </where>
     </update>
 
-    <select id="selectUsers" resultType="com.alice.crm.entity.User">
+    <select id="selectUsers" resultType="com.alice.crm.user.entity.User">
         SELECT
         <include refid="BASE_COLUMN"/>
         FROM
@@ -61,7 +61,7 @@
         limit 0,10
     </select>
 
-    <select id="getUserByUserId" resultType="com.alice.crm.entity.User">
+    <select id="getUserByUserId" resultType="com.alice.crm.user.entity.User">
         SELECT
         <include refid="BASE_COLUMN"/>
         FROM
@@ -69,4 +69,9 @@
         where userId = #{userId, jdbcType=INTEGER}
 
     </select>
+    <select id="getUserByUser" resultType="com.alice.crm.user.entity.User" >
+        select * from <include refid="BASE_TABLE"/>
+        where userName = #{userName, jdbcType=String} and password #{password, jdbcType=String};
+    </select>
+
 </mapper>

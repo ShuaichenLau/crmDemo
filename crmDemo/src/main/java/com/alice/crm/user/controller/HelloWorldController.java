@@ -1,7 +1,7 @@
-package com.alice.crm.controller;
+package com.alice.crm.user.controller;
 
-import com.alice.crm.entity.Person;
-import com.alice.crm.service.IUserService;
+import com.alice.crm.user.entity.Person;
+import com.alice.crm.user.service.IUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

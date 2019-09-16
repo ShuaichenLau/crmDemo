@@ -1,6 +1,6 @@
-package com.alice.crm.service;
+package com.alice.crm.user.service;
 
-import com.alice.crm.entity.User;
+import com.alice.crm.user.entity.User;
 
 import java.util.List;
 
@@ -15,5 +15,7 @@ public interface IUserService {
     List<User> getByAllUser();
 
     User getByUserId(Integer userId);
+
+    User getByUser(String userName, String password);
 
 }

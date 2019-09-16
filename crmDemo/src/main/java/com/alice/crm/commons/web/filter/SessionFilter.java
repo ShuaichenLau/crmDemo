@@ -1,6 +1,6 @@
 package com.alice.crm.commons.web.filter;
 
-import com.alice.crm.entity.User;
+import com.alice.crm.user.entity.User;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;

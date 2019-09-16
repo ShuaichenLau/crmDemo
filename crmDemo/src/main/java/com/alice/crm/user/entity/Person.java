@@ -1,4 +1,4 @@
-package com.alice.crm.entity;
+package com.alice.crm.user.entity;
 
 import lombok.Data;
 

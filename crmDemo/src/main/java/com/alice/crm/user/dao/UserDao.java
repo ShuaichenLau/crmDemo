@@ -1,6 +1,6 @@
-package com.alice.crm.dao;
+package com.alice.crm.user.dao;
 
-import com.alice.crm.entity.User;
+import com.alice.crm.user.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -21,4 +21,6 @@ public interface UserDao extends BaseMapper<User> {
     List<User> selectUsers();
 
     User getUserByUserId(@Param("userId") Integer userId);
+
+    User getUserByUser(@Param("userName")String userName, @Param("password")String password);
 }

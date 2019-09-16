@@ -1,8 +1,8 @@
-package com.alice.crm.service.impl;
+package com.alice.crm.user.service.impl;
 
-import com.alice.crm.dao.UserDao;
-import com.alice.crm.entity.User;
-import com.alice.crm.service.IUserService;
+import com.alice.crm.user.dao.UserDao;
+import com.alice.crm.user.entity.User;
+import com.alice.crm.user.service.IUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,5 +54,12 @@ public class UserServiceImpl implements IUserService {
         logger.info("com.alice.hikaricp.service.impl.UserServiceImpl.getByUserId");
         User userByUserId = userDao.getUserByUserId(userId);
         return userByUserId;
+    }
+
+    @Override
+    public User getByUser(String userName, String password) {
+        logger.info("com.alice.crm.user.service.impl.UserServiceImpl.getByUser");
+        userDao.getUserByUser(userName, password);
+        return null;
     }
 }
