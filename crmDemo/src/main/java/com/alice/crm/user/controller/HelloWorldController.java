@@ -19,7 +19,7 @@ import java.util.List;
  * HelloWorldDemo
  */
 @Controller
-@RequestMapping("/hello")
+@RequestMapping("/")
 public class HelloWorldController {
 
     private final Logger logger = LoggerFactory.getLogger(HelloWorldController.class);
@@ -43,7 +43,7 @@ public class HelloWorldController {
         return "Greetings from Spring Boot! ";
     }
 
-    @RequestMapping("/index")
+    @RequestMapping("/demo")
     public String indexHtml(Model model) {
 
         Person single = new Person("hyj", 21);
@@ -60,9 +60,14 @@ public class HelloWorldController {
     }
 
 
-    @RequestMapping("/login")
-    public String loginDemo(Model model) {
-        logger.info("com.alice.crm.controller.HelloWorldController.loginDemo");
+    /**
+     * 页面入口 登录
+     * @param model
+     * @return
+     */
+    @RequestMapping("/index")
+    public String index(Model model) {
+        logger.info("com.alice.crm.controller.HelloWorldController.index");
         return "login";
     }
 
