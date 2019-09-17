@@ -21,27 +21,4 @@ public class workbenchController {
     @Autowired
     private IUserService userService;
 
-//    @RequestMapping("/index")
-//    public String workbenchIndex(Model model, HttpServletRequest request, HttpServletResponse response) {
-//        logger.info("com.alice.crm.workbench.controller.workbenchController.workbenchIndex");
-//
-//        String userName = request.getParameter("userName");
-//        String password = request.getParameter("password");
-//
-//        System.out.println(userName);
-//        System.out.println(password);
-//
-//        try {
-//            if (userName != null && password != null) {
-//                User byUser = userService.getByUser(userName, password);
-//                if(byUser != null){
-//                    model.addAttribute("byUser", byUser);
-//                }
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        return "workbench/index.html";
-//    }
 }
