@@ -2,9 +2,12 @@ package com.alice.crm.user.controller;
 
 import com.alice.crm.user.entity.Person;
 import com.alice.crm.user.service.IUserService;
+import com.google.common.collect.Maps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.HashOperations;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * HelloWorldDemo
@@ -30,6 +35,11 @@ public class HelloWorldController {
     @Autowired
     private IUserService userService;
 
+    @Autowired
+    private RedisTemplate redisTemplate;
+
+
+
     @ResponseBody
     @RequestMapping("/showConfig")
     public String index() {
@@ -45,7 +55,6 @@ public class HelloWorldController {
 
     @RequestMapping("/demo")
     public String indexHtml(Model model) {
-
         Person single = new Person("hyj", 21);
         List<Person> peopleList = new ArrayList<Person>();
         Person p1 = new Person("dlp", 21);
@@ -59,6 +68,16 @@ public class HelloWorldController {
         return "indexDemo";
     }
 
+    @RequestMapping("/redisDemo")
+    public String redisDemo(Model model){
+        logger.info("com.alice.crm.user.controller.HelloWorldController.redisDemo");
+        HashOperations<String,String,String> hashOperations = redisTemplate.opsForHash();
+        for (int i = 0; i < 10; i++) {
+            hashOperations.put(UUID.randomUUID().toString().replaceAll("-", ""), "alice-" + i, i + "-alice");
+        }
+        return "indexDemo";
+    }
+
 
     /**
      * 页面入口 登录
@@ -67,6 +86,7 @@ public class HelloWorldController {
      */
     @RequestMapping("/index")
     public String index(Model model) {
+
         logger.info("com.alice.crm.controller.HelloWorldController.index");
         return "login";
     }

@@ -9,14 +9,14 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.concurrent.TimeUnit;
 
-@Configuration
-@EnableCaching
+//@Configuration
+//@EnableCaching
 public class GuavaCacheConfig {
 
-    @Bean
-    public CacheManager cacheManager() {
-        GuavaCacheManager cacheManager = new GuavaCacheManager();
-        cacheManager.setCacheBuilder(CacheBuilder.newBuilder().expireAfterWrite(10, TimeUnit.SECONDS).maximumSize(1000));
-        return cacheManager;
-    }
+//    @Bean
+//    public CacheManager cacheManager() {
+//        GuavaCacheManager cacheManager = new GuavaCacheManager();
+//        cacheManager.setCacheBuilder(CacheBuilder.newBuilder().expireAfterWrite(10, TimeUnit.SECONDS).maximumSize(1000));
+//        return cacheManager;
+//    }
 }
