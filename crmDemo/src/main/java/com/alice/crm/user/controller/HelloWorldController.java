@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,10 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * HelloWorldDemo
@@ -37,8 +35,6 @@ public class HelloWorldController {
 
     @Autowired
     private RedisTemplate redisTemplate;
-
-
 
     @ResponseBody
     @RequestMapping("/showConfig")
@@ -68,25 +64,43 @@ public class HelloWorldController {
         return "indexDemo";
     }
 
+    @ResponseBody
     @RequestMapping("/redisDemo")
-    public String redisDemo(Model model){
+    public String redisDemo(Model model) {
         logger.info("com.alice.crm.user.controller.HelloWorldController.redisDemo");
-        HashOperations<String,String,String> hashOperations = redisTemplate.opsForHash();
-        for (int i = 0; i < 10; i++) {
-            hashOperations.put(UUID.randomUUID().toString().replaceAll("-", ""), "alice-" + i, i + "-alice");
-        }
-        return "indexDemo";
-    }
+        HashOperations<String, String, String> hashOperations = redisTemplate.opsForHash();
+//        redisTemplate.opsForValue();//操作字符串
+//        redisTemplate.opsForHash();//操作hash
+//        redisTemplate.opsForList();//操作list
+//        redisTemplate.opsForSet();//操作set
+//        redisTemplate.opsForZSet();//操作有序set
 
+        Set<String> keys = hashOperations.keys("alice");
+        for (int i = keys.size(); i < keys.size() + 10; i++) {
+            hashOperations.put("alice", i + "-alice", UUID.randomUUID().toString().replaceAll("-", ""));
+        }
+
+        StringBuffer stringBuffer = new StringBuffer();
+
+        for (String key : hashOperations.keys("alice")) {
+            String str = hashOperations.get("alice", key);
+            stringBuffer.append(key)
+                    .append("==>")
+                    .append(str)
+                    .append(System.getProperty("line.separator"));
+        }
+
+        return stringBuffer.toString();
+    }
 
     /**
      * 页面入口 登录
+     *
      * @param model
      * @return
      */
     @RequestMapping("/index")
     public String index(Model model) {
-
         logger.info("com.alice.crm.controller.HelloWorldController.index");
         return "login";
     }

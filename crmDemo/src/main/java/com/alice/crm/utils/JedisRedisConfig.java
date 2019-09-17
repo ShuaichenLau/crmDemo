@@ -21,6 +21,8 @@ public class JedisRedisConfig {
     private int maxIdle;
     @Value("${spring.redis.jedis.pool.max-wait}")
     private long maxWaitMillis;
+    @Value("${spring.redis.database}")
+    private int databaseIndex;
 
     @Bean
     JedisConnectionFactory jedisConnectionFactory() {
@@ -29,6 +31,7 @@ public class JedisRedisConfig {
         factory.setPort(port);
         factory.setTimeout(timeout);
         factory.setPassword(password);
+        factory.setDatabase(databaseIndex);
         return factory;
     }
 
