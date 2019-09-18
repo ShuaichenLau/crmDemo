@@ -31,14 +31,14 @@ public class UserServiceImpl implements IUserService {
     @Override
     public int deleteUser(User user) {
         logger.info("com.alice.hikaricp.service.impl.UserServiceImpl.deleteUser");
-        return userDao.deleteUserById(user.getUserId());
+        return userDao.deleteUserById(user.getId());
     }
 
     @Override
     public User updateUser(User user) {
         logger.info("com.alice.hikaricp.service.impl.UserServiceImpl.updateUser");
         userDao.updateUser(user);
-        User userByUserId = userDao.getUserByUserId(user.getUserId());
+        User userByUserId = userDao.getUserByUserId(user.getId());
         return userByUserId;
     }
 

@@ -34,7 +34,7 @@ public class UserController {
     public String insertUser() {
         User user = new User();
         user.setUserName(RandomValueUtil.getChineseName());
-        user.setPassword(UUID.randomUUID().toString().replaceAll("-", ""));
+        user.setLoginPwd(UUID.randomUUID().toString().replaceAll("-", ""));
         user.setPhone(RandomValueUtil.getTelephone());
 
         userService.insertUser(user);

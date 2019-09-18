@@ -6,7 +6,8 @@
     </sql>
 
     <sql id="BASE_COLUMN">
-        userId,userName,password,phone
+--         userId,userName,password,phone
+      id,userName,phone,loginAct,loginPwd,email,lockStatus,expireTime,allowIps,createBy,createTime,editBy,editTime
     </sql>
 
     <insert id="insertUser" useGeneratedKeys="true" keyProperty="userId" parameterType="com.alice.crm.user.entity.User">
