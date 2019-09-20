@@ -21,4 +21,9 @@ public class workbenchController {
     @Autowired
     private IUserService userService;
 
+    @RequestMapping("/index")
+    public String idnex(Model model, HttpServletRequest request, HttpServletResponse response) {
+        return "/workbench/index";
+    }
+
 }

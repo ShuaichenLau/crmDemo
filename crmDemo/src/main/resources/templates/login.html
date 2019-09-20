@@ -19,25 +19,60 @@
 			<div class="page-header">
 				<h1>登录</h1>
 			</div>
-			<form th:action="@{/login}" method="post" class="form-horizontal" role="form" >
+			<!--<form th:action="@{/login}" method="post" class="form-horizontal" role="form">-->
+			<form class="form-horizontal" role="form" target="nm_iframe">
 				<div class="form-group form-group-lg">
 					<div style="width: 350px;">
-						<input class="form-control" type="text" name="userName" placeholder="用户名">
+						<input class="form-control" type="text" name="userName" id="userName" placeholder="用户名">
 					</div>
 					<div style="width: 350px; position: relative;top: 20px;">
-						<input class="form-control" type="password" name="password" placeholder="密码">
+						<input class="form-control" type="password" name="password" id="password" placeholder="密码">
 					</div>
-					<div><span style="color: red" th:text="${errInfo}"></span></div>
 					<div class="checkbox"  style="position: relative;top: 30px; left: 10px;">
 						<label>
-							<input type="checkbox"> 十天内免登录
+							<input type="checkbox" name="rememberFlag"> 十天内免登录
+							<span class="label label-warning" id="errInfoSpan"></span>
 						</label>
 					</div>
-					<button type="submit" class="btn btn-primary btn-lg btn-block"  style="width: 350px; position: relative;top: 45px;">登录</button>
+					<!--<div style="width: auto; padding-top: 50px;"><span class="label label-warning" id="errInfoSpan">aaaaaaaaa</span></div>-->
+					<button type="submit" class="btn btn-primary btn-lg btn-block" id="submitButton"  style="width: 350px; position: relative;top: 45px;">登录</button>
+
 				</div>
 			</form>
 		</div>
 	</div>
-	<iframe id="id_iframe" name="nm_iframe" style="display:none;"></iframe>
 </body>
+
+<iframe id="id_iframe" name="nm_iframe" style="display:none;"></iframe>
+
+<script type="text/javascript">
+
+	$(function(){
+        $(window).keyup(function(event){
+            if(event.keyCode==13){
+                $("#submitButton").click();
+            }
+        });
+
+        $("#submitButton").click(function(){
+            var logAct = $("#userName").val();
+            var logPwd = $("#password").val();
+            $.ajax({
+                url: '/crm/login',
+                data:{"act":logAct,"pwd":logPwd},
+                type:'post',
+                dataType:'json',
+				success:function (data) {
+                    console.dir(data);
+                    if(data.success == "0"){
+                        window.location.href="/crm/workbench/index";
+					}else {
+                        document.getElementById("errInfoSpan").innerText=data.errInfo;
+					}
+                }
+			})
+
+		});
+	})
+</script>
 </html>
