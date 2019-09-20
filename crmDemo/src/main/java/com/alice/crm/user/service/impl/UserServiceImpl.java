@@ -59,7 +59,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public User getByUser(String userName, String password) {
         logger.info("com.alice.crm.user.service.impl.UserServiceImpl.getByUser");
-        userDao.getUserByUser(userName, password);
-        return null;
+        User userByUser = userDao.getUserByUser(userName, password);
+        return userByUser;
     }
 }

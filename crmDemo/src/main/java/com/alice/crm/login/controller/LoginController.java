@@ -42,6 +42,7 @@ public class LoginController {
             User byUser = userService.getByUser(username, md5Password);
             if (byUser != null) {
                 model.addAttribute("byUser", byUser);
+                model.addAttribute("errInfo","用户名OR密码不正确");
                 return "workbench/index.html";
             }
         }

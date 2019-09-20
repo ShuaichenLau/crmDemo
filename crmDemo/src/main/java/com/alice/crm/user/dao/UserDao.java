@@ -14,13 +14,13 @@ public interface UserDao extends BaseMapper<User> {
 
     int insertUser(User record);
 
-    int deleteUserById(@Param("userId") Integer userId);
+    int deleteUserById(@Param("id") Integer userId);
 
     boolean updateUser(User userDomain);
 
     List<User> selectUsers();
 
-    User getUserByUserId(@Param("userId") Integer userId);
+    User getUserByUserId(@Param("id") Integer userId);
 
-    User getUserByUser(@Param("userName")String userName, @Param("password")String password);
+    User getUserByUser(@Param("userName")String userName, @Param("loginPwd")String password);
 }
