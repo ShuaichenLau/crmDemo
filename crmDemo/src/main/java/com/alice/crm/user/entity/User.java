@@ -1,14 +1,17 @@
 package com.alice.crm.user.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.Date;
 
 @Data
 public class User implements Serializable {
 
-    private Integer id;  //  bigint       not null
+    @TableId
+    private String id;  //  bigint       not null
     private String userName;  // varchar(255) not null,
     private String phone;  // varchar(255) not null,
     private String loginAct;  // varchar(255) null,

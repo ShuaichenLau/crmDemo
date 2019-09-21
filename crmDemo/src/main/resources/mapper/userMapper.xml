@@ -10,20 +10,33 @@
       id,userName,phone,loginAct,loginPwd,email,lockStatus,expireTime,allowIps,createBy,createTime,editBy,editTime
     </sql>
 
-    <insert id="insertUser" useGeneratedKeys="true" keyProperty="userId" parameterType="com.alice.crm.user.entity.User">
+
+    <insert id="insertEntity" useGeneratedKeys="true" keyProperty="id" parameterType="com.alice.crm.user.entity.User">
+      INSERT INTO t_user
+      (id,userName,phone,loginAct,loginPwd,email,lockStatus,expireTime,allowIps,createBy,createTime,editBy,editTime)
+      value
+      (#{id,jdbcType=BIGINT}, #{userName, jdbcType=VARCHAR},#{phone, jdbcType=VARCHAR},#{loginAct,jdbcType=VARCHAR},#{loginPwd, jdbcType=VARCHAR},#{email,jdbcType=VARCHAR},#{lockStatus,jdbcType=VARCHAR},
+            #{expireTime,jdbcType=TIMESTAMP},#{allowIps,jdbcType=VARCHAR},#{createBy,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP},#{editBy,jdbcType=VARCHAR},
+            #{editTime,jdbcType=TIMESTAMP})
+    </insert>
+
+    <insert id="insertUser" useGeneratedKeys="true" keyProperty="id" parameterType="com.alice.crm.user.entity.User">
         INSERT INTO
         <include refid="BASE_TABLE"/>
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            userName,loginPwd,
+            userName,phone,loginAct,loginPwd,email,lockStatus,expireTime,allowIps,createBy,createTime,editBy,editTime
             <if test="phone != null">
                 phone,
             </if>
         </trim>
         <trim prefix="VALUES(" suffix=")" suffixOverrides=",">
-            #{userName, jdbcType=VARCHAR},#{password, jdbcType=VARCHAR},
+            #{userName, jdbcType=VARCHAR}
             <if test="phone != null">
-                #{phone, jdbcType=VARCHAR},
+                #{phone, jdbcType=VARCHAR}
             </if>
+            #{loginAct,jdbcType=VARCHAR},#{loginPwd, jdbcType=VARCHAR},#{email,jdbcType=VARCHAR},#{lockStatus,jdbcType=VARCHAR},
+            #{expireTime,jdbcType=TIMESTAMP},#{allowIps,jdbcType=VARCHAR},#{createBy,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP},#{editBy,jdbcType=VARCHAR},
+            #{editTime,jdbcType=TIMESTAMP}
         </trim>
     </insert>
 
@@ -73,7 +86,7 @@
 
     <select id="getUserByUser" resultType="com.alice.crm.user.entity.User" >
         select * from <include refid="BASE_TABLE"/>
-        where userName = #{userName, jdbcType=VARCHAR} and loginPwd = #{loginPwd, jdbcType=VARCHAR};
+        where loginAct = #{loginAct, jdbcType=VARCHAR} and loginPwd = #{loginPwd, jdbcType=VARCHAR};
     </select>
 
 </mapper>

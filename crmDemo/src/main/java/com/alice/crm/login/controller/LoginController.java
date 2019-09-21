@@ -49,9 +49,12 @@ public class LoginController {
             User byUser = userService.getByUser(username, md5Password);
             if (byUser != null) {
                 returnMaps.put("success","0");
+                returnMaps.put("errInfo","登录成功...");
+            }else {
+                returnMaps.put("success","1");
+                returnMaps.put("errInfo","用户名OR密码不正确");
             }
-            returnMaps.put("success","1");
-            returnMaps.put("errInfo","用户名OR密码不正确");
+
         }
         return returnMaps;
     }

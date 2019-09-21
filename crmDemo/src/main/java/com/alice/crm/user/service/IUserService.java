@@ -14,7 +14,7 @@ public interface IUserService {
 
     List<User> getByAllUser();
 
-    User getByUserId(Integer userId);
+    User getByUserId(String userId);
 
     User getByUser(String userName, String password);
 

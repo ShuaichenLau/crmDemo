@@ -12,15 +12,17 @@ import java.util.List;
 @Component
 public interface UserDao extends BaseMapper<User> {
 
+    int insertEntity(User user);
+
     int insertUser(User record);
 
-    int deleteUserById(@Param("id") Integer userId);
+    int deleteUserById(@Param("id") String userId);
 
     boolean updateUser(User userDomain);
 
     List<User> selectUsers();
 
-    User getUserByUserId(@Param("id") Integer userId);
+    User getUserByUserId(@Param("id") String userId);
 
-    User getUserByUser(@Param("userName")String userName, @Param("loginPwd")String password);
+    User getUserByUser(@Param("loginAct")String loginAct, @Param("loginPwd")String password);
 }
