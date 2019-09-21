@@ -1,6 +1,7 @@
 package com.alice.crm.user.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -8,6 +9,7 @@ import java.math.BigInteger;
 import java.util.Date;
 
 @Data
+@TableName("t_user")
 public class User implements Serializable {
 
     @TableId

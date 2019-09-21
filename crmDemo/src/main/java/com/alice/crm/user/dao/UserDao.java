@@ -12,9 +12,7 @@ import java.util.List;
 @Component
 public interface UserDao extends BaseMapper<User> {
 
-    int insertEntity(User user);
-
-    int insertUser(User record);
+    int insertUser(User user);
 
     int deleteUserById(@Param("id") String userId);
 

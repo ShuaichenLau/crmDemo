@@ -21,7 +21,10 @@ public class UserServiceImpl implements IUserService {
     @Override
     public boolean insertUser(User user) {
         logger.info("com.alice.hikaricp.service.impl.UserServiceImpl.insertUser");
-        int insertCount = userDao.insertEntity(user);
+
+        int insertCount = userDao.insert(user);
+
+//        int insertCount = userDao.insertEntity(user);
         if (insertCount > 0) {
             return true;
         }
