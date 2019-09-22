@@ -45,7 +45,7 @@
 
 <iframe id="id_iframe" name="nm_iframe" style="display:none;"></iframe>
 
-<script type="text/javascript">
+<script th:inline="javascript" type="text/javascript">
 
 	$(function(){
         $(window).keyup(function(event){
@@ -57,15 +57,18 @@
         $("#submitButton").click(function(){
             var logAct = $("#userName").val();
             var logPwd = $("#password").val();
+
+            var ctxPath = [[${#httpServletRequest.getContextPath()}]];
+
             $.ajax({
-                url: '/crm/login',
+                url: ctxPath+'/login',
                 data:{"act":logAct,"pwd":logPwd},
                 type:'post',
                 dataType:'json',
 				success:function (data) {
                     console.dir(data);
                     if(data.success == "0"){
-                        window.location.href="/crm/workbench/index";
+                        window.location.href = ctxPath+"/workbench/index";
 					}else {
                         document.getElementById("errInfoSpan").innerText=data.errInfo;
 					}
