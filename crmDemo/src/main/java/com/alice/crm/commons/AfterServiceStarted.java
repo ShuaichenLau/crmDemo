@@ -15,6 +15,6 @@ public class AfterServiceStarted implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
-        log.info("Successful service startup!");
+        log.info(" Successful service startup! ");
     }
 }
