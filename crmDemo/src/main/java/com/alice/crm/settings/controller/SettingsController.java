@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -33,7 +34,7 @@ public class SettingsController {
     }
 
     /**
-     * 部门列表首页
+     * 部门列表首页页面
      *
      * @param model
      * @param request
@@ -47,12 +48,13 @@ public class SettingsController {
 
     /**
      * 部门添加
+     *
      * @param model
      * @param request
      * @param response
-     * @param name 部门名称
-     * @param phone 部门电话
-     * @param manager 部门负责人
+     * @param name     部门名称
+     * @param phone    部门电话
+     * @param manager  部门负责人
      * @param describe 部门描述
      * @return
      */
@@ -74,13 +76,103 @@ public class SettingsController {
         boolean insertFlag = deptService.insertDept(dept);
 
         if (insertFlag) {
-            returnMaps.put("success","0");
+            returnMaps.put("success", "0");
 
         } else {
-            returnMaps.put("success","1");
+            returnMaps.put("success", "1");
         }
         return returnMaps;
     }
 
+    /**
+     * 显示所有部门
+     *
+     * @param model
+     * @param request
+     * @param response
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("dept/showDeptList")
+    public Map<String, Object> deptList(Model model, HttpServletRequest request, HttpServletResponse response) {
+        logger.info("com.alice.crm.settings.controller.SettingsController.deptList");
+
+        Map<String, Object> returnMaps = Maps.newHashMap();
+
+        try {
+            List<Dept> allDept = deptService.getAllDept();
+            returnMaps.put("deptList", allDept);
+            returnMaps.put("success", "0");
+
+        } catch (Exception e) {
+            returnMaps.put("success", "1");
+            e.printStackTrace();
+        }
+        return returnMaps;
+    }
+
+
+    /**
+     * 跳转部门修改页面 return部门信息
+     *
+     * @param model
+     * @param request
+     * @param response
+     * @param deptId
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("dept/editPageForDept")
+    public Map<String, Object> editPageForDept(Model model, HttpServletRequest request, HttpServletResponse response,
+                                               @RequestParam("deptId") String deptId) {
+        logger.info("com.alice.crm.settings.controller.SettingsController.editPageForDept");
+        Map<String, Object> returnMaps = Maps.newHashMap();
+        try {
+            Dept deptByDeptId = deptService.getDeptByDeptId(deptId);
+
+            returnMaps.put("editPageForDept", deptByDeptId);
+            returnMaps.put("success", "0");
+        } catch (Exception e) {
+            returnMaps.put("success", "1");
+            e.printStackTrace();
+        }
+
+        return returnMaps;
+    }
+
+    /**
+     * 修改dept save db
+     * @param model
+     * @param request
+     * @param response
+     * @param deptId
+     * @param name
+     * @param phone
+     * @param manager
+     * @param describe
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("dept/updateDept")
+    public Map<String, Object> updateDept(Model model, HttpServletRequest request, HttpServletResponse response,
+                                          @RequestParam("deptId") String deptId, @RequestParam("name") String name, @RequestParam("phone") String phone,
+                                          @RequestParam("manager") String manager, @RequestParam("describe") String describe) {
+        logger.info("com.alice.crm.settings.controller.SettingsController.updateDept");
+        Map<String, Object> returnMaps = Maps.newHashMap();
+        Dept deptByDeptId = deptService.getDeptByDeptId(deptId);
+        deptByDeptId.setDeptName(name);
+        deptByDeptId.setDeptPhone(phone);
+        deptByDeptId.setDeptDescribe(describe);
+        deptByDeptId.setDeptManager(manager);
+        boolean b = deptService.updateDept(deptByDeptId);
+
+        if(b){
+            returnMaps.put("success", "0");
+        }else {
+            returnMaps.put("success", "1");
+        }
+
+        return returnMaps;
+    }
 
 }
