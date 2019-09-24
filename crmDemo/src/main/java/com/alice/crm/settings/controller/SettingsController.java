@@ -164,9 +164,8 @@ public class SettingsController {
         deptByDeptId.setDeptPhone(phone);
         deptByDeptId.setDeptDescribe(describe);
         deptByDeptId.setDeptManager(manager);
-        boolean b = deptService.updateDept(deptByDeptId);
 
-        if(b){
+        if(deptService.updateDept(deptByDeptId)){
             returnMaps.put("success", "0");
         }else {
             returnMaps.put("success", "1");
