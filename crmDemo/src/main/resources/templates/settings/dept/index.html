@@ -263,23 +263,7 @@
 						<td>描述</td>
 					</tr>
 				</thead>
-				<tbody>
-					<tr class="active">
-						<td><input type="checkbox" /></td>
-						<td>1110</td>
-						<td>财务部</td>
-						<td>张飞</td>
-						<td>010-84846005</td>
-						<td>description info</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" /></td>
-						<td>1120</td>
-						<td>销售部</td>
-						<td>关羽</td>
-						<td>010-84846006</td>
-						<td>description info</td>
-					</tr>
+				<tbody id="deptTable">
 				</tbody>
 			</table>
 		</div>
@@ -319,6 +303,39 @@
 </body>
 
 <script th:inline="javascript" type="text/javascript">
+
+    var ctxPath = [[${#httpServletRequest.getContextPath()}]];
+    $(document).ready(function(){
+
+        $.ajax({
+            url: ctxPath+'/settings/dept/showDeptList',
+            data:{},
+            type:'post',
+            dataType:'json',
+            success:function (data) {
+                console.dir(data);
+                var dateList = new Array();
+                dateList = data.deptList;
+                var htmlStr = '';
+                for (var i = 0; i < dateList.length; i++) {
+                    htmlStr += '<tr>'
+                    htmlStr += '<td><input type="checkbox" /></td>'
+                    htmlStr += '    <td>'+dateList[i].deptId+'</td>'
+                    htmlStr += '    <td>'+dateList[i].deptName+'</td>'
+                    htmlStr += '    <td>'+dateList[i].deptManager+'</td>'
+                    htmlStr += '    <td>'+dateList[i].deptPhone+'</td>'
+                    htmlStr += '   <td>'+dateList[i].deptDescribe+'</td>'
+                    htmlStr += '<tr>'
+                }
+
+                $("#deptTable").append(htmlStr);
+
+            }
+        });
+
+    });
+
+
     $(function(){
         $(window).keyup(function(event){
             if(event.keyCode==13){
@@ -333,7 +350,7 @@
             var describe = $("#create-describe").val();
 
 
-            var ctxPath = [[${#httpServletRequest.getContextPath()}]];
+
 
             $.ajax({
                 url: ctxPath+'/settings/dept/add',
@@ -348,6 +365,7 @@
 
         });
     })
+
 
 
 </script>

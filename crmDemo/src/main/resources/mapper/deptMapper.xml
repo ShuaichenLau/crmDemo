@@ -7,7 +7,7 @@
         *
         FROM
         t_dept
-        ORDER BY userId desc
+        ORDER BY deptId desc
         limit 0,10
     </select>
 
