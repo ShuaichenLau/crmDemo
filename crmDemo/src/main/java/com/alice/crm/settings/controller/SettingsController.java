@@ -102,8 +102,8 @@ public class SettingsController {
         try {
             List<Dept> allDept = deptService.getAllDept();
             returnMaps.put("deptList", allDept);
+            returnMaps.put("deptListCount", allDept.size());
             returnMaps.put("success", "0");
-
         } catch (Exception e) {
             returnMaps.put("success", "1");
             e.printStackTrace();

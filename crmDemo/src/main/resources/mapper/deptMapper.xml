@@ -8,7 +8,6 @@
         FROM
         t_dept
         ORDER BY deptId desc
-        limit 0,10
     </select>
 
 </mapper>
