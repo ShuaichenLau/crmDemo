@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
@@ -31,6 +32,13 @@ public class KafkaSender {
         message.setSendTime(new Date());
         log.info("com.alice.crm.commons.kafka.KafkaSender.send");
         kafkaTemplate.send("message", gson.toJson(message));
+    }
 
+    /**
+     * 传参数 message
+     * @param message
+     */
+    public void sendMessage(Message message){
+        kafkaTemplate.send("message", gson.toJson(message));
     }
 }

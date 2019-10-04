@@ -1,8 +1,10 @@
 package com.alice.crm.user.controller;
 
+import com.alice.crm.commons.kafka.KafkaSender;
 import com.alice.crm.user.entity.Person;
 import com.alice.crm.user.service.IUserService;
 import com.google.common.collect.Maps;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +25,8 @@ import java.util.*;
  */
 @Controller
 @RequestMapping("/")
+@Slf4j
 public class HelloWorldController {
-
-    private final Logger logger = LoggerFactory.getLogger(HelloWorldController.class);
 
     @Resource
     private DataSource dataSource;
@@ -36,15 +37,18 @@ public class HelloWorldController {
     @Autowired
     private RedisTemplate redisTemplate;
 
+    @Autowired
+    private KafkaSender kafkaSender;
+
     @ResponseBody
     @RequestMapping("/showConfig")
     public String index() {
 
-        logger.info("com.alice.hikaricp.controller.HelloWorldController.index");
+        log.info("com.alice.hikaricp.controller.HelloWorldController.index");
 
-        logger.info("dataSource ==>  " + dataSource.getClass());
+        log.info("dataSource ==>  " + dataSource.getClass());
 
-        logger.info("userService ==>  " + userService.getClass());
+        log.info("userService ==>  " + userService.getClass());
 
         return "Greetings from Spring Boot! ";
     }
@@ -67,7 +71,7 @@ public class HelloWorldController {
     @ResponseBody
     @RequestMapping("/redisDemo")
     public String redisDemo(Model model) {
-        logger.info("com.alice.crm.user.controller.HelloWorldController.redisDemo");
+        log.info("com.alice.crm.user.controller.HelloWorldController.redisDemo");
         HashOperations<String, String, String> hashOperations = redisTemplate.opsForHash();
 //        redisTemplate.opsForValue();//操作字符串
 //        redisTemplate.opsForHash();//操作hash
@@ -93,6 +97,22 @@ public class HelloWorldController {
         return stringBuffer.toString();
     }
 
+    @ResponseBody
+    @RequestMapping("/kafkaDemo")
+    public String kafkaDemo(Model model){
+
+        for (int i = 0; i < 10; i++) {
+            kafkaSender.send();
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return "kafkaDemo";
+    }
+
     /**
      * 页面入口 登录
      *
@@ -101,7 +121,7 @@ public class HelloWorldController {
      */
     @RequestMapping("/index")
     public String index(Model model) {
-        logger.info("com.alice.crm.controller.HelloWorldController.index");
+        log.info("com.alice.crm.controller.HelloWorldController.index");
         return "login";
     }
 
